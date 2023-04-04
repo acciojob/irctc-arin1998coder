@@ -23,6 +23,9 @@ public class TicketController {
             Integer ticketId = ticketService.bookTicket(bookTicketEntryDto);
             return ticketId;
         }catch (Exception e) {
+            System.out.println("Failed "); //by me
+            e.printStackTrace(); //by me
+
             return null;
         }
     }
