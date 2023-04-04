@@ -16,20 +16,20 @@ public class PassengerController {
     @Autowired
     PassengerService passengerService;
 
-    //addedby me
-    @Autowired
-    TicketRepository ticketRepository;
+//    //addedby me
+//    @Autowired
+//    TicketRepository ticketRepository;
 
     @PostMapping("/create")
     public Integer registerPassenger(@RequestBody Passenger passenger){
         return passengerService.addPassenger(passenger);
     }
 
-    //added by me
-    @GetMapping("/passenger_count")
-    public int getPassengersOnATicket(@RequestParam int ticketId){
-        Ticket ticket = ticketRepository.findById(ticketId).get();
-        return ticket.getPassengersList().size();
-    }
+//    //added by me
+//    @GetMapping("/passenger_count")
+//    public int getPassengersOnATicket(@RequestParam int ticketId){
+//        Ticket ticket = ticketRepository.findById(ticketId).get();
+//        return ticket.getPassengersList().size();
+//    }
 
 }

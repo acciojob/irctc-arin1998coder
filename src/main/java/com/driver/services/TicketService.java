@@ -32,8 +32,8 @@ public class TicketService {
     @Autowired
     PassengerRepository passengerRepository;
 
-    @Autowired
-    TrainService trainService;
+//    @Autowired
+//    TrainService trainService;
 
 
     public Integer bookTicket(BookTicketEntryDto bookTicketEntryDto)throws Exception{
