@@ -84,18 +84,29 @@ public class TicketService {
         //store the trains route in the citymap
         String[] cities = train.getRoute().split(",");
 
-        for (int i = 0; i < cities.length; i++) {
-            cityMap.put(cities[i], i);
+        int fromInd = -1,toInd=-1;
+
+        int i=0;
+        for(String city:cities){
+            if(city.equals(from.name())){
+                fromInd=i;
+                //to city found before from city--> wrong combination
+                if(toInd!=-1){
+                    throw new Exception("Invalid stations");
+                }
+            }
+            if(city.equals(to.name())){
+                toInd=i;
+            }
+            i++;
         }
 
-        //check if the traiin passes through the from and to station
-        if(!cityMap.containsKey(from.name()) || !cityMap.containsKey(to.name()) || cityMap.get(from.name())>cityMap.get(to.name())){
-
+        if(fromInd==-1 || toInd==-1){
             throw new Exception("Invalid stations");
         }
 
         //calculate total fare
-        int totalFare = (cityMap.get(to.name()) - cityMap.get(from.name())) * 300;
+        int totalFare = (toInd - fromInd) * 300;
 
         Ticket ticket = new Ticket();
 
