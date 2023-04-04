@@ -50,21 +50,8 @@ public class TicketService {
         //Save the bookedTickets in the train Object
         //Also in the passenger Entity change the attribute bookedTickets by using the attribute bookingPersonId.
        //And the end return the ticketId that has come from db
-
-        HashMap<String,Integer> cityMap = new HashMap<>();
-
-        List<Integer> passengers = bookTicketEntryDto.getPassengerIds();
-
-
-        Integer bookingPersonId = bookTicketEntryDto.getBookingPersonId();
-
-        Passenger bookingPerson = passengerRepository.findById(bookingPersonId).get();
-
         Integer trainId = bookTicketEntryDto.getTrainId();
 
-        Station from = bookTicketEntryDto.getFromStation();
-
-        Station to = bookTicketEntryDto.getToStation();
 
         int seatsRequired = bookTicketEntryDto.getNoOfSeats();
 
@@ -76,9 +63,23 @@ public class TicketService {
             bookedSeats +=ticket.getPassengersList().size();
         }
 
-        if(seatsRequired>train.getNoOfSeats() - bookedSeats){
+        if( bookedSeats + seatsRequired>train.getNoOfSeats()){
             throw new Exception("Less tickets are available");
         }
+
+        HashMap<String,Integer> cityMap = new HashMap<>();
+
+        List<Integer> passengers = bookTicketEntryDto.getPassengerIds();
+
+
+        Integer bookingPersonId = bookTicketEntryDto.getBookingPersonId();
+
+        Passenger bookingPerson = passengerRepository.findById(bookingPersonId).get();
+
+
+        Station from = bookTicketEntryDto.getFromStation();
+
+        Station to = bookTicketEntryDto.getToStation();
 
         //store the trains route in the citymap
         String[] cities = train.getRoute().split(",");
